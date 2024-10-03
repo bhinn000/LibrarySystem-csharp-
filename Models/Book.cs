@@ -7,22 +7,26 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem.Models
 {
-    internal class Book
+    public class Book
     {
         //first write all of the attributes that will be in Book class
         //why it has to be public
-        public String Title;
-        public int Pages;
-        public String Author;
-        public bool IsAvailable;
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public int Pages { get; set; }
+        public bool IsAvailable { get; set; }
 
-        Book(String title, String author, int pages)
+        //by default access is private
+        public Book(int id, String title, String author, int pages)
         {
+            this.Id = id;
             this.Title= title;
             this.Author= author;
             this.Pages= pages;
             this.IsAvailable= true;
         }
 
+       
     }
 }

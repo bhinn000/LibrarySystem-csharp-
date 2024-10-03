@@ -62,5 +62,76 @@ Usage: Usually applied to simple data types like int, bool, etc.
 BooksController is part of a typical ASP.NET MVC application, where it acts as a controller that handles HTTP requests related to books
 In ASP.NET, controllers manage the incoming requests, process them (e.g., by interacting with models), and then return responses (e.g., HTML views, JSON data, etc.).
 
+internal class, which means it is only accessible within the same assembly. 
+
+***What is this***
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5000
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: H:\.NET Learn\LibrarySystem
+
+
+ASP.NET Core uses System.Text.Json for serialization by default
+fields dont get serialized by default in JSON , but properties does
+
+
+ReadMe: 
+When performing :
+
+1) GetAllBooks https://localhost:53310/api/books
+[
+    {
+        "Id": 1,
+        "Title": "The Great Gatsby",
+        "Author": "F. Scott Fitzgerald",
+        "Pages": 180,
+        "IsAvailable": true
+    },
+    {
+        "Id": 2,
+        "Title": "1984",
+        "Author": "George Orwell",
+        "Pages": 328,
+        "IsAvailable": true
+    },
+    {
+        "Id": 3,
+        "Title": "To Kill a Mockingbird",
+        "Author": "Harper Lee",
+        "Pages": 281,
+        "IsAvailable": true
+    },
+    {
+        "Id": 4,
+        "Title": "Moby Dick",
+        "Author": "Herman Melville",
+        "Pages": 585,
+        "IsAvailable": true
+    }
+]
+
+2)  Get by Id : https://localhost:53310/api/books/2
+{
+    "Id": 2,
+    "Title": "1984",
+    "Author": "George Orwell",
+    "Pages": 328,
+    "IsAvailable": true
+}
+
+3) Add books Post https://localhost:53310/api/books
+{
+    "Id": 3,
+    "Title": "New Book Title",
+    "Author": "New Author",
+    "Pages": 150
+}
+Book added sucessfully
+
+4) 
 
 

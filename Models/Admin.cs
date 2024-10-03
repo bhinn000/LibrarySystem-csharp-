@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem.Models
 {
-    internal class Admin
+    public class Admin
     {
         public List<Book> books = new List<Book>();
         public List<Member> members = new List<Member>();
@@ -15,11 +15,11 @@ namespace LibrarySystem.Models
         public void RegisterMember(Member member) => members.Add(member);
 
         // Issues a book to a member, if available
-        public bool IssueBook(int bookId, int memberId)
+        public bool IssueBook(int bookId, string memberId)
         {
             //if there is it is object otherwise null
             var book = books.FirstOrDefault(b => b.Id == bookId && b.IsAvailable);  // Finds the book by ID if available
-            var member = members.FirstOrDefault(m => m.Id == memberId);  // Finds the member by ID  //LINQ method
+            var member = members.FirstOrDefault(m => m.MemId == memberId);  // Finds the member by ID  //LINQ method
 
             if (book != null && member != null) 
             {
@@ -34,7 +34,7 @@ namespace LibrarySystem.Models
         // Returns a book based on the loan ID
         public bool ReturnBook(int loanId)
         {
-            var loan = borrows.FirstOrDefault(l => l.LoanId == loanId && !l.ReturnedDate.HasValue);  // Finds the loan if not already returned
+            var loan = borrows.FirstOrDefault(l => l.LoanId == loanId && !l.ReturnedTime.HasValue);  // Finds the loan if not already returned
             if (loan != null)  // Checks if the loan exists
             {
                 loan.ReturnBook();  // Calls the method to return the book
