@@ -65,8 +65,6 @@ namespace LibrarySystem.Controllers
             return Ok("Book added sucessfully");
         }
 
-        //why has it normally send response , why not data type as in nodejs
-        //update book
         [HttpPut("{id}")]
         public ActionResult UpdateBook(int id, Book UpdatedBook)
         {
@@ -75,19 +73,24 @@ namespace LibrarySystem.Controllers
                 return BadRequest("Updated book data is required.");
             }
 
-            //to know the detail of the book with that specific id
-            var existingBookResult = GetBookById(id);
-            if (existingBookResult.Result is NotFoundResult) //this vs existingBook == null
-            {
-                return NotFound();
-            }
+            //// Get the existing book details by ID
+            //var existingBook = books.FirstOrDefault(b => b.Id == id);
 
-            var existingBook = existingBookResult.Value;
-            existingBook.Title = UpdatedBook.Title;
-            existingBook.Author = UpdatedBook.Author;
-            return NoContent(); //success
+            //if (existingBook == null)
+            //{
+            //    return NotFound($"Book with ID {id} not found.");
+            //}
 
+            //// Update the book details
+            //existingBook.Title = UpdatedBook.Title;
+            //existingBook.Author = UpdatedBook.Author;
+            //existingBook.Pages = UpdatedBook.Pages;
+ 
+            // Return the updated book as a response
+            return Ok("HI"); 
         }
+
+
 
         //delete a book
         [HttpDelete("{id}")]
@@ -103,17 +106,16 @@ namespace LibrarySystem.Controllers
             // Extract the Book object from the ActionResult
             var toDelete = bookResult.Value;
 
+            if (toDelete == null)
+            {
+                return NotFound();
+            }
+
             // Remove the book from the list
             books.Remove(toDelete);
-            return NoContent(); // success
+            Console.WriteLine($"Book with ID {id} deleted successfully.");
+            return NoContent();
 
-            //var toDelete = GetBookById(id);
-            //if (toDelete == null)
-            //{
-            //    return NotFound();
-            //}
-            //books.Remove(toDelete);
-            //return NoContent(); //success
         }
 
         //search a book
@@ -145,24 +147,7 @@ namespace LibrarySystem.Controllers
             return Ok(); //why are we not using 
         }
 
-        //returning a book
-        public ActionResult ReturnBook(int loanId)
-        {
-            var bookborrowed = borrows.FirstOrDefault(l => l.LoanId == loanId && !l.ReturnedTime.HasValue);
-            if (bookborrowed == null)
-            {
-                return NotFound();
-            }
-            bookborrowed.ReturnBook(); //where is ReturnBook() , and : it is inside Borrow.cs
-            return NoContent();
-
-
-        }
-
-        //give list of book borrowed by a member
-        public IEnumerable<Borrow> GetBookBorrowed(string memberId)
-        {
-            return borrows.Where(b => b.Member.MemId == memberId);
-        }
+       
+       
     }
 }
